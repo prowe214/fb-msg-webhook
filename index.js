@@ -5,6 +5,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express().use(bodyParser.json()); // creates express http server
 
+// set page access token
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
 // set server port and log success message
 const port = process.env.PORT || 1337;
 app.listen(port, () => console.log(`success! listening on port ${port}`))
@@ -26,12 +29,16 @@ app.post('/webhook', (req, res) => {
 
         // iterate over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
-            // gets the message.  
+            // gets the body of the webhook event.
             // entry.messaging is an array,
             // but will only ever contain one message
             // so we get index 0
             let webhook_event = entry.messaging[0];
             console.log('event: ', webhook_event);
+
+            // get the sender PSID
+            let sender_psid = webhook_event.sender.id;
+            console.log('Sender PSID', sender_psid);
         })
 
         // return a 200 OK to all requests
@@ -75,3 +82,26 @@ app.get('/webhook', (req, res) => {
 
     }
 })
+
+
+/**
+ * functions that will handle the incoming webhook event types we want to support.
+ * 
+ * Glossary:
+ *      `psid` - Page-scoped ID
+ */
+
+// Handles messages events
+function handleMessage(sender_psid, received_message) {
+
+}
+
+// handles messaging_postbacks events
+function handlePostback(sender_psid, received_postback) {
+
+}
+
+// sends response messages viw the Send API
+function callSendAPI(sender_psid, response) {
+
+}
