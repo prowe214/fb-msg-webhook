@@ -4,7 +4,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const Storage = require('dom-storage');
 
 const app = express().use(bodyParser.json()); // creates express http server
 
@@ -15,7 +14,6 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const port = process.env.PORT || 1337;
 app.listen(port, () => console.log(`success! listening on port ${port}`))
 
-const sessionStorage = new Storage(null, {strict: false})
 
 /**
  * This creates a /webhook endpoint that accepts POST requests, 
@@ -113,7 +111,6 @@ function handleMessage(sender_psid, received_message) {
     if (received_message.text) {
 
         if (received_message.text.toLowerCase() === 'start the form') {
-            sessionStorage.setItem('form', 'success!')
             startForm(sender_psid);
         } else {
             // Create the payload for a basic text message
