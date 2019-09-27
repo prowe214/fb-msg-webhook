@@ -109,9 +109,13 @@ function handleMessage(sender_psid, received_message) {
     // Check if the message contains text
     if (received_message.text) {
 
-        // Create the payload for a basic text message
-        response = {
-            'text': `You sent this message: ${received_message.text}.  Now send me an image!`
+        if (received_message.text.toLowerCase() === 'start the form') {
+            startForm(sender_psid);
+        } else {
+            // Create the payload for a basic text message
+            response = {
+                'text': `You sent this message: ${received_message.text}.  Now send me an image!`
+            }
         }
     } else if (received_message.attachments) {
 
@@ -194,3 +198,41 @@ function callSendAPI(sender_psid, response) {
         }
     })
 }
+
+function startform(sender_psid) {
+    const formStore = {
+        question_number: 0,
+        field_name: 'start_form',
+        form_data: {}
+    }
+    const response = {
+        attachment: {
+            type: 'template',
+            payload: {
+                template_type: 'button',
+                text: 'Would you like to start the form?',
+                buttons: [
+                    {
+                        type: 'postback',
+                        title: 'Yes!',
+                        payload: {
+                            answer: 'yes',
+                            ...formStore
+                        }
+                    },
+                    {
+                        type: 'postback',
+                        title: 'No',
+                        payload: {
+                            answer: 'no',
+                            ...formStore
+                        }
+                    }
+                ]
+            }
+        }
+    }
+
+    callSendAPI(sender_psid, response)
+}
+
