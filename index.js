@@ -113,7 +113,7 @@ function handleMessage(sender_psid, received_message) {
     if (received_message.text) {
 
         if (received_message.text.toLowerCase() === 'start the form') {
-            sessionStorage.setItem('form', {formStarted: Date.now()})
+            sessionStorage.setItem('form', 'success!')
             startForm(sender_psid);
         } else {
             // Create the payload for a basic text message
