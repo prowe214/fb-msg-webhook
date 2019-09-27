@@ -199,7 +199,7 @@ function callSendAPI(sender_psid, response) {
     })
 }
 
-function startform(sender_psid) {
+function startForm(sender_psid) {
     const formStore = {
         question_number: 0,
         field_name: 'start_form',
