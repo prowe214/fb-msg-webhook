@@ -200,11 +200,14 @@ function callSendAPI(sender_psid, response) {
 }
 
 function startForm(sender_psid) {
+    // start storing forms
     const formStore = {
         question_number: 0,
         field_name: 'start_form',
         form_data: {}
     }
+    
+    // build the response template
     const response = {
         attachment: {
             type: 'template',
@@ -215,24 +218,19 @@ function startForm(sender_psid) {
                     {
                         type: 'postback',
                         title: 'Yes!',
-                        payload: {
-                            answer: 'yes',
-                            ...formStore
-                        }
+                        payload: 'yes'
                     },
                     {
                         type: 'postback',
                         title: 'No',
-                        payload: {
-                            answer: 'no',
-                            ...formStore
-                        }
+                        payload: 'no'
                     }
                 ]
             }
         }
     }
 
+    // send the response
     callSendAPI(sender_psid, response)
 }
 
