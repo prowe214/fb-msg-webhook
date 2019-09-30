@@ -159,13 +159,12 @@ function handlePostback(sender_psid, received_postback) {
 
     // get the payload for the postback
     let payload = responsePayload;
-    console.log('*************FORM DATA-------', payload.form_data)
 
     // set the response based on the postback payload
     if (payload.form_data.form_started) {
-        response = { text: 'Awesome, thanks!' }
+        response = getQuestion(payload);
     } else {
-        response = { text: 'Whoops, try sending another image' }
+        response = { text: 'Okay we will not start the form' }
     }
 
     // send the message to acknowledge the postback
@@ -209,9 +208,6 @@ function startForm(sender_psid) {
     const saveYes = saveAnswer(formStore, 'form_started', true);
     const saveNo = saveAnswer(formStore, 'form_started', false);
 
-    console.log('A YES IS------', saveYes)
-    console.log('A NO IS------', saveNo)
-    
     // build the response template
     const response = {
         attachment: {
@@ -249,4 +245,17 @@ function saveAnswer(oldForm, fieldName, fieldValue) {
     };
     newForm.form_data[fieldName] = fieldValue;
     return JSON.stringify(newForm);
+}
+
+function getQuestion(payload) {
+    const questionNumber = payload.question_number;
+    // const oldForm = {...payload.form_data};
+
+    switch (questionNumber) {
+        case 1:
+            console.log('------------------------HIT QUESTION ', questionNumber)
+            break;
+        default:
+            break;
+    }
 }
