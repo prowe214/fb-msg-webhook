@@ -252,5 +252,5 @@ function saveAnswer(oldForm, fieldName, fieldValue) {
     };
     newForm.form_data[fieldName] = fieldValue;
     console.log('************SAVED--------', newForm.form_data);
-    return newForm;
+    return {...newForm};
 }
