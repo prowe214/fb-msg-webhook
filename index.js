@@ -168,6 +168,8 @@ function handlePostback(sender_psid, received_postback) {
         response = { text: 'Okay we will not start the form' }
     }
 
+    console.log('POSTBACK------------', response)
+
     // send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
 }
@@ -306,6 +308,8 @@ function qFavoriteColor(oldForm) {
             }
         }
     }
+
+    console.log('----------RETURNING THIS', response)
 
     return response;
 }
