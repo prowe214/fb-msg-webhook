@@ -162,6 +162,7 @@ function handlePostback(sender_psid, received_postback) {
 
     // get the payload for the postback
     let payload = responsePayload.payload;
+    console.warn('PAYLOAD-----------------------', payload)
 
     // set the response based on the postback payload
     if (payload.form_data.form_started) {
