@@ -159,7 +159,7 @@ function handleMessage(sender_psid, received_message) {
 function handlePostback(sender_psid, received_postback) {
     let response;
     console.warn('RECEIVED***********', received_postback)
-    const responsePayload = JSON.parse(received_postback);
+    const responsePayload = JSON.parse(received_postback.payload);
 
     // get the payload for the postback
     let payload = responsePayload.payload;
