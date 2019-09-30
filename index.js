@@ -164,9 +164,9 @@ function handlePostback(sender_psid, received_postback) {
     let payload = responsePayload.payload;
 
     // set the response based on the postback payload
-    if (payload === 'yes') {
+    if (payload.form_data.form_started) {
         response = { text: 'Awesome, thanks!' }
-    } else if (payload === 'no') {
+    } else {
         response = { text: 'Whoops, try sending another image' }
     }
 
