@@ -252,7 +252,7 @@ function getQuestion(payload) {
 
     switch (questionNumber) {
         case 1:
-            return qFavoriteColor(payload.form_data)
+            return qFavoriteColor(payload)
         case 2:
             return {text: `Awesome! You started the form ${payload.form_data.form_started}, and your favorite color is ${payload.form_data.color}`}
         default:
