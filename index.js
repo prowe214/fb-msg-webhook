@@ -249,13 +249,60 @@ function saveAnswer(oldForm, fieldName, fieldValue) {
 
 function getQuestion(payload) {
     const questionNumber = payload.question_number;
-    // const oldForm = {...payload.form_data};
 
     switch (questionNumber) {
         case 1:
-            console.log('------------------------HIT QUESTION ', questionNumber)
-            return { text: 'Form Started!' }
+            return qFavoriteColor(payload.form_data)
+        case 2:
+            return {text: `Awesome! You started the form ${payload.form_data.form_started}, and your favorite color is ${payload.form_data.color}`}
         default:
             break;
     }
+}
+
+function qFavoriteColor(oldForm) {
+    const answerBlue = saveAnswer(formStore, 'color', 'blue');
+    const answerRed = saveAnswer(formStore, 'color', 'red');
+    const answerPink = saveAnswer(formStore, 'color', 'pink');
+    const answerGold = saveAnswer(formStore, 'color', 'gold');
+
+    // build the response template
+    const response = {
+        attachment: {
+            type: 'template',
+            payload: {
+                template_type: 'button',
+                text: 'Would you like to start the form?',
+                buttons: [
+                    {
+                        type: 'postback',
+                        title: 'Blue',
+                        // postback payload must be a string
+                        payload: answerBlue
+                    },
+                    {
+                        type: 'postback',
+                        title: 'Gold',
+                        // postback payload must be a string
+                        payload: answerGold
+                    },
+                    {
+                        type: 'postback',
+                        title: 'Pink',
+                        // postback payload must be a string
+                        payload: answerPink
+                    },
+                    {
+                        type: 'postback',
+                        title: 'Red',
+                        // postback payload must be a string
+                        payload: answerRed
+                    }
+                ]
+            }
+        }
+    }
+
+    // send the response
+    callSendAPI(sender_psid, response)
 }
