@@ -37,11 +37,9 @@ app.post('/webhook', (req, res) => {
             // but will only ever contain one message
             // so we get index 0
             let webhook_event = entry.messaging[0];
-            console.log('event: ', webhook_event);
 
             // get the sender PSID
             let sender_psid = webhook_event.sender.id;
-            console.log('Sender PSID', sender_psid);
 
             // Check if the event is a message or postback and
             // pass the event to the appropriate handler function
@@ -84,7 +82,6 @@ app.get('/webhook', (req, res) => {
         if (mode === 'subscribe' && token === VERIFY_TOKEN) {
 
             // response with the vhallenge token from the request
-            console.log('WEBHOOK_VERIFIED');
             res.status(200).send(challenge);
         } else {
             // respond with 403 FORBIDDEN if verify tokens don't match
@@ -227,13 +224,13 @@ function startForm(sender_psid) {
                         type: 'postback',
                         title: 'Yes!',
                         // postback payload must be a string
-                        payload: JSON.stringify(saveYes)
+                        payload: saveYes
                     },
                     {
                         type: 'postback',
                         title: 'No',
                         // postback payload must be a string
-                        payload: JSON.stringify(saveNo)
+                        payload: saveNo
                     }
                 ]
             }
@@ -252,5 +249,5 @@ function saveAnswer(oldForm, fieldName, fieldValue) {
     };
     newForm.form_data[fieldName] = fieldValue;
     console.log('************SAVED--------', newForm.form_data);
-    return {...newForm};
+    return JSON.stringify(newForm);
 }
