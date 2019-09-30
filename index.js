@@ -242,12 +242,11 @@ function startForm(sender_psid) {
 }
 
 function saveAnswer(oldForm, fieldName, fieldValue) {
-    console.log('************SAVING-----', fieldName, fieldValue);
+    const questionNumber = oldForm.questionNumber;
     const newForm = {
         ...oldForm,
-        question_number: oldForm.question_number++
+        question_number: questionNumber++
     };
     newForm.form_data[fieldName] = fieldValue;
-    console.log('************SAVED--------', newForm.form_data);
     return JSON.stringify(newForm);
 }
