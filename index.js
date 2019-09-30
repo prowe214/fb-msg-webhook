@@ -155,10 +155,9 @@ function handleMessage(sender_psid, received_message) {
 // handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
     let response;
-    const responsePayload = JSON.parse(received_postback.payload);
 
     // get the payload for the postback
-    let payload = responsePayload;
+    let payload = JSON.parse(received_postback.payload);
 
     console.log('--------------FORM DATA', payload.form_data)
     // set the response based on the postback payload
@@ -194,6 +193,8 @@ function callSendAPI(sender_psid, response) {
         'json': request_body
     }, (err, res, body) => {
         if (!err) {
+            console.log('RES------', res)
+            console.log('BODY-----', body)
             console.log('message sent!');
         } else {
             console.error('Unable to send message:', err);
