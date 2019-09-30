@@ -158,9 +158,10 @@ function handleMessage(sender_psid, received_message) {
 // handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
     let response;
+    const responsePayload = JSON.parse(received_postback);
 
     // get the payload for the postback
-    let payload = received_postback.payload;
+    let payload = responsePayload.payload;
 
     // set the response based on the postback payload
     if (payload === 'yes') {
@@ -204,9 +205,11 @@ function startForm(sender_psid) {
     // start storing forms
     const formStore = {
         question_number: 0,
-        field_name: 'start_form',
         form_data: {}
     }
+
+    const saveYes = saveAnswer(formStore, 'form_started', true);
+    const saveNo = saveAnswer(formStore, 'form_started', false);
     
     // build the response template
     const response = {
@@ -220,13 +223,13 @@ function startForm(sender_psid) {
                         type: 'postback',
                         title: 'Yes!',
                         // postback payload must be a string
-                        payload: 'yes'
+                        payload: JSON.stringify(saveYes)
                     },
                     {
                         type: 'postback',
                         title: 'No',
                         // postback payload must be a string
-                        payload: 'no'
+                        payload: JSON.stringify(saveNo)
                     }
                 ]
             }
@@ -237,3 +240,11 @@ function startForm(sender_psid) {
     callSendAPI(sender_psid, response)
 }
 
+function saveAnswer(oldForm, fieldName, fieldValue) {
+    const newForm = {
+        ...oldForm,
+        question_number: question_number++
+    };
+    newForm.form_data[fieldName] = fieldValue;
+    return newForm;
+}
