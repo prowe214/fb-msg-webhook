@@ -299,12 +299,12 @@ function qFavoriteColor(oldForm) {
                         // postback payload must be a string
                         payload: answerPink
                     },
-                    {
-                        type: 'postback',
-                        title: 'Red',
-                        // postback payload must be a string
-                        payload: answerRed
-                    }
+                    // {
+                    //     type: 'postback',
+                    //     title: 'Red',
+                    //     // postback payload must be a string
+                    //     payload: answerRed
+                    // }
                 ]
             }
         }
