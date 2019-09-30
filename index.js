@@ -261,10 +261,10 @@ function getQuestion(payload) {
 }
 
 function qFavoriteColor(oldForm) {
-    const answerBlue = saveAnswer(formStore, 'color', 'blue');
-    const answerRed = saveAnswer(formStore, 'color', 'red');
-    const answerPink = saveAnswer(formStore, 'color', 'pink');
-    const answerGold = saveAnswer(formStore, 'color', 'gold');
+    const answerBlue = saveAnswer({...oldForm}, 'color', 'blue');
+    const answerRed = saveAnswer({...oldForm}, 'color', 'red');
+    const answerPink = saveAnswer({...oldForm}, 'color', 'pink');
+    const answerGold = saveAnswer({...oldForm}, 'color', 'gold');
 
     // build the response template
     const response = {
