@@ -245,7 +245,7 @@ function saveAnswer(oldForm, fieldName, fieldValue) {
     const questionNumber = oldForm.questionNumber;
     const newForm = {
         ...oldForm,
-        question_number: questionNumber++
+        question_number: questionNumber + 1
     };
     newForm.form_data[fieldName] = fieldValue;
     return JSON.stringify(newForm);
