@@ -158,6 +158,7 @@ function handleMessage(sender_psid, received_message) {
 // handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
     let response;
+    console.warn('RECEIVED***********', received_postback)
     const responsePayload = JSON.parse(received_postback);
 
     // get the payload for the postback
