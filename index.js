@@ -162,7 +162,7 @@ function handlePostback(sender_psid, received_postback) {
 
     // set the response based on the postback payload
     if (payload.form_data.form_started) {
-        response = getQuestion(payload);
+        response = getQuestion(sender_psid, payload);
     } else {
         response = { text: 'Okay we will not start the form' }
     }
@@ -247,12 +247,12 @@ function saveAnswer(oldForm, fieldName, fieldValue) {
     return JSON.stringify(newForm);
 }
 
-function getQuestion(payload) {
+function getQuestion(sender_psid, payload) {
     const questionNumber = payload.question_number;
 
     switch (questionNumber) {
         case 1:
-            return qFavoriteColor(payload)
+            return qFavoriteColor(sender_psid, payload)
         case 2:
             return {text: `Awesome! You started the form ${payload.form_data.form_started}, and your favorite color is ${payload.form_data.color}`}
         default:
@@ -260,7 +260,7 @@ function getQuestion(payload) {
     }
 }
 
-function qFavoriteColor(oldForm) {
+function qFavoriteColor(sender_psid, oldForm) {
     const answerBlue = saveAnswer({...oldForm}, 'color', 'blue');
     const answerRed = saveAnswer({...oldForm}, 'color', 'red');
     const answerPink = saveAnswer({...oldForm}, 'color', 'pink');
