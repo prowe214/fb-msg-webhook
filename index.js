@@ -299,6 +299,7 @@ function qFavoriteColor(oldForm) {
                         // postback payload must be a string
                         payload: answerPink
                     },
+        // ⚠️MAX 3 BUTTONS!!!!
                     // {
                     //     type: 'postback',
                     //     title: 'Red',
