@@ -254,7 +254,7 @@ function getQuestion(payload) {
     switch (questionNumber) {
         case 1:
             console.log('------------------------HIT QUESTION ', questionNumber)
-            break;
+            return { text: 'Form Started!' }
         default:
             break;
     }
