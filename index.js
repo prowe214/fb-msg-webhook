@@ -272,7 +272,7 @@ function qFavoriteColor(sender_psid, oldForm) {
             type: 'template',
             payload: {
                 template_type: 'button',
-                text: 'Would you like to start the form?',
+                text: 'What is your favorite color?',
                 buttons: [
                     {
                         type: 'postback',
@@ -303,6 +303,5 @@ function qFavoriteColor(sender_psid, oldForm) {
         }
     }
 
-    // send the response
-    callSendAPI(sender_psid, response)
+    return response;
 }
