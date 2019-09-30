@@ -211,6 +211,9 @@ function startForm(sender_psid) {
 
     const saveYes = saveAnswer(formStore, 'form_started', true);
     const saveNo = saveAnswer(formStore, 'form_started', false);
+
+    console.log('A YES IS------', saveYes)
+    console.log('A NO IS------', saveNo)
     
     // build the response template
     const response = {
