@@ -243,7 +243,7 @@ function startForm(sender_psid) {
 function saveAnswer(oldForm, fieldName, fieldValue) {
     const newForm = {
         ...oldForm,
-        question_number: question_number++
+        question_number: oldForm.question_number++
     };
     newForm.form_data[fieldName] = fieldValue;
     return newForm;
