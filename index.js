@@ -110,7 +110,7 @@ function handleMessage(sender_psid, received_message) {
         
         if (received_message.text.toLowerCase() === 'start the form') {
             startForm(sender_psid);
-        } else if (received_message.nlp && received_message.nlp.entities && received_message.nlp.entities.location[0]) {
+        } else if (received_message.nlp && received_message.nlp.entities && received_message.nlp.entities.location) {
             response = { 'text': `you sent this address: ${received_message.nlp.entities.location[0].value}` }
 
         } else {
