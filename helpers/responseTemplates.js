@@ -4,6 +4,7 @@ module.exports = {
 
     buildQuestionResponseTemplate: function(index, oldForm) {
         let responseTemplate;
+        console.log('QUESTIONS----------', questions)
         const question = questions[index];
 
         if (question.template_type === 'button') {
