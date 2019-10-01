@@ -101,20 +101,18 @@ app.get('/webhook', (req, res) => {
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
-    console.log('*****************MESSAGE', received_message.entities.location)
-
+    
     let response;
-
+    
     // Check if the message contains text
     if (received_message.text) {
-
+        
         if (received_message.text.toLowerCase() === 'start the form') {
             startForm(sender_psid);
         } else if (received_message.nlp && received_message.nlp.entities) {
-            if (received_message.nlp.entities.location){
-                console.log('LOCATION', received_message.nlp.entities.location);
-                response = `you sent this address: ${received_message.nlp.entities.location}`
-            }
+            console.log('*****************MESSAGE', received_message.nlp.entities.location)
+            console.log('LOCATION', received_message.nlp.entities.location);
+            response = `you sent this address: ${received_message.nlp.entities.location}`
         } else {
             // Create the payload for a basic text message
             response = {
