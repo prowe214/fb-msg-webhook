@@ -283,19 +283,19 @@ function qFavoriteColor(oldForm) {
                 buttons: [
                     {
                         type: 'postback',
-                        title: 'Blue',
+                        title: 'Blue and Navy',
                         // postback payload must be a string
                         payload: answerBlue
                     },
                     {
                         type: 'postback',
-                        title: 'Gold',
+                        title: 'Gold and Yellow',
                         // postback payload must be a string
                         payload: answerGold
                     },
                     {
                         type: 'postback',
-                        title: 'Pink',
+                        title: 'Pink and Red',
                         // postback payload must be a string
                         payload: answerPink
                     },
