@@ -110,10 +110,8 @@ function handleMessage(sender_psid, received_message) {
         
         if (received_message.text.toLowerCase() === 'start the form') {
             startForm(sender_psid);
-        } else if (received_message.nlp && received_message.nlp.entities) {
-            console.log('*****************MESSAGE', received_message.nlp.entities.location)
-            console.log('LOCATION', received_message.nlp.entities.location);
-            response = { 'text': `you sent this address: ${received_message.nlp.entities.location}` }
+        } else if (received_message.nlp && received_message.nlp.entities && received_message.nlp.entities.location[0]) {
+            response = { 'text': `you sent this address: ${received_message.nlp.entities.location[0].body}` }
         } else {
             // Create the payload for a basic text message
             response = {
