@@ -101,7 +101,7 @@ app.get('/webhook', (req, res) => {
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
-    console.log('*****************MESSAGE', received_message)
+    console.log('*****************MESSAGE', received_message.entities.location)
 
     let response;
 
@@ -110,6 +110,10 @@ function handleMessage(sender_psid, received_message) {
 
         if (received_message.text.toLowerCase() === 'start the form') {
             startForm(sender_psid);
+        } else if (received_message.entities) {
+            if (received_message.entities.location){
+                replyLocation(received_message.entities.location)
+            }
         } else {
             // Create the payload for a basic text message
             response = {
