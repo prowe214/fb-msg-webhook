@@ -25,6 +25,7 @@ app.listen(port, () => console.log(`success! listening on port ${port}`))
 // create endpoint for the webhook
 app.post('/webhook', (req, res) => {
 
+    console.log('***********************REQ DETAILS', req)
     let body = req.body;
 
     // check that this request is from a page subscription
@@ -41,7 +42,6 @@ app.post('/webhook', (req, res) => {
             // get the sender PSID
             let sender_psid = webhook_event.sender.id;
 
-            console.log('***********************EVENT DETAILS', webhook_event)
             // Check if the event is a message or postback and
             // pass the event to the appropriate handler function
             if (webhook_event.message) {
