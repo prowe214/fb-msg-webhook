@@ -25,14 +25,14 @@ app.listen(port, () => console.log(`success! listening on port ${port}`))
 // create endpoint for the webhook
 app.post('/webhook', (req, res) => {
 
-    console.log('***********************REQ DETAILS', req)
     let body = req.body;
-
+    
     // check that this request is from a page subscription
     if (body.object === 'page') {
-
+        
         // iterate over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
+            console.log('***********************ENTRY DETAILS', entry)
             // gets the body of the webhook event.
             // entry.messaging is an array,
             // but will only ever contain one message
