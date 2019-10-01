@@ -1,0 +1,23 @@
+{
+    "questions": [
+        {
+            "field": "color",
+            "text": "What is your favorite color?",
+            "template_type": "button",
+            "options": [
+                {
+                    "title": "Blue",
+                    "value": "blue"
+                },
+                {
+                    "title": "Gold",
+                    "value": "gold"
+                },
+                {
+                    "title": "Red",
+                    "value": "red"
+                }
+            ]
+        }
+    ]
+}

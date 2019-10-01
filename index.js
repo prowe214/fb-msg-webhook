@@ -41,6 +41,7 @@ app.post('/webhook', (req, res) => {
             // get the sender PSID
             let sender_psid = webhook_event.sender.id;
 
+            console.log('***********************EVENT DETAILS', webhook_event)
             // Check if the event is a message or postback and
             // pass the event to the appropriate handler function
             if (webhook_event.message) {
@@ -112,40 +113,40 @@ function handleMessage(sender_psid, received_message) {
         } else {
             // Create the payload for a basic text message
             response = {
-                'text': `You sent this message: ${received_message.text}.  Now send me an image!`
+                'text': `You sent this message: ${received_message.text}.  Say 'start the form' to test the form!`
             }
         }
     } else if (received_message.attachments) {
 
         // get the URL of the message attachment
-        let attachment_url = received_message.attachments[0].payload.url;
-        response = {
-            attachment: {
-                type: 'template',
-                payload: {
-                    template_type: 'generic',
-                    elements: [
-                        {
-                            title: 'Is this the right picture?',
-                            subtitle: 'Tap a button to answer',
-                            image_url: attachment_url,
-                            buttons: [
-                                {
-                                    type: 'postback',
-                                    title: 'Yes!',
-                                    payload: 'yes'
-                                },
-                                {
-                                    type: 'postback',
-                                    title: 'No',
-                                    payload: 'no'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
+        // let attachment_url = received_message.attachments[0].payload.url;
+        // response = {
+        //     attachment: {
+        //         type: 'template',
+        //         payload: {
+        //             template_type: 'generic',
+        //             elements: [
+        //                 {
+        //                     title: 'Is this the right picture?',
+        //                     subtitle: 'Tap a button to answer',
+        //                     image_url: attachment_url,
+        //                     buttons: [
+        //                         {
+        //                             type: 'postback',
+        //                             title: 'Yes!',
+        //                             payload: 'yes'
+        //                         },
+        //                         {
+        //                             type: 'postback',
+        //                             title: 'No',
+        //                             payload: 'no'
+        //                         }
+        //                     ]
+        //                 }
+        //             ]
+        //         }
+        //     }
+        // }
     }
 
     // send the response message
@@ -159,15 +160,12 @@ function handlePostback(sender_psid, received_postback) {
     // get the payload for the postback
     let payload = JSON.parse(received_postback.payload);
 
-    console.log('--------------FORM DATA', payload.form_data)
     // set the response based on the postback payload
     if (payload.form_data.form_started) {
         response = getQuestion(payload);
     } else {
         response = { text: 'Okay we will not start the form' }
     }
-
-    console.log('POSTBACK------------', response)
 
     // send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
@@ -193,8 +191,6 @@ function callSendAPI(sender_psid, response) {
         'json': request_body
     }, (err, res, body) => {
         if (!err) {
-            console.log('RES------', res)
-            console.log('BODY-----', body)
             console.log('message sent!');
         } else {
             console.error('Unable to send message:', err);
