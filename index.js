@@ -296,7 +296,7 @@ function qFavoriteColor(oldForm) {
 
 function buildQuestionResponseTemplate(index, oldForm) {
     let responseTemplate;
-    question = questions[index];
+    const question = questions[index];
 
     if (question.template_type === 'button') {
         responseTemplate = {
