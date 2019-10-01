@@ -4,7 +4,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const questions = require('./questions.json').questions;
+const templates = require('./helpers/responseTemplates');
 
 const app = express().use(bodyParser.json()); // creates express http server
 
@@ -178,6 +178,7 @@ function startForm(sender_psid) {
         {text: 'Welcome to the demo!'},
         {text: 'Thanks for reaching out.'}
     ]
+    // Send our intro messages
     intro.forEach(item => {
         callSendAPI(sender_psid, item);
     })
@@ -188,51 +189,15 @@ function startForm(sender_psid) {
         form_data: {}
     }
 
-    const saveYes = saveAnswer(formStore, 'form_started', true);
-    const saveNo = saveAnswer(formStore, 'form_started', false);
-
     // build the response template
-    const response = {
-        attachment: {
-            type: 'template',
-            payload: {
-                template_type: 'button',
-                text: 'Would you like to start the form?',
-                buttons: [
-                    {
-                        type: 'postback',
-                        title: 'Yes!',
-                        // postback payload must be a string
-                        payload: saveYes
-                    },
-                    {
-                        type: 'postback',
-                        title: 'No',
-                        // postback payload must be a string
-                        payload: saveNo
-                    }
-                ]
-            }
-        }
-    }
+    const response = templates.buildQuestionResponseTemplate(formStore, 0)
 
     // send the response
     callSendAPI(sender_psid, response)
 }
 
-function saveAnswer(oldForm, fieldName, fieldValue) {
-    const questionNumber = oldForm.question_number;
-    const newForm = {
-        ...oldForm,
-        question_number: questionNumber + 1
-    };
-    newForm.form_data[fieldName] = fieldValue;
-    return JSON.stringify(newForm);
-}
-
 function getQuestion(payload) {
     const questionNumber = payload.question_number;
-    console.log('------------------IN GETQUESTION', questionNumber)
 
     switch (questionNumber) {
         case 1:
@@ -245,80 +210,6 @@ function getQuestion(payload) {
 }
 
 function qFavoriteColor(oldForm) {
-    const response = buildQuestionResponseTemplate(1, oldForm)
-    // const answerBlue = saveAnswer({...oldForm}, 'color', 'blue');
-    // const answerRed = saveAnswer({...oldForm}, 'color', 'red');
-    // const answerPink = saveAnswer({...oldForm}, 'color', 'pink');
-    // const answerGold = saveAnswer({...oldForm}, 'color', 'gold');
-
-    // // build the response template
-    // const response = {
-    //     attachment: {
-    //         type: 'template',
-    //         payload: {
-    //             template_type: 'button',
-    //             text: 'What is your favorite color?',
-    //             buttons: [
-    //                 {
-    //                     type: 'postback',
-    //                     title: 'Blue and Navy',
-    //                     // postback payload must be a string
-    //                     payload: answerBlue
-    //                 },
-    //                 {
-    //                     type: 'postback',
-    //                     title: 'Gold and Yellow',
-    //                     // postback payload must be a string
-    //                     payload: answerGold
-    //                 },
-    //                 {
-    //                     type: 'postback',
-    //                     title: 'Pink and Red',
-    //                     // postback payload must be a string
-    //                     payload: answerPink
-    //                 },
-    //     // ⚠️MAX 3 BUTTONS!!!!
-    //                 // {
-    //                 //     type: 'postback',
-    //                 //     title: 'Red',
-    //                 //     // postback payload must be a string
-    //                 //     payload: answerRed
-    //                 // }
-    //             ]
-    //         }
-    //     }
-    // }
-
-    console.log('----------RETURNING THIS', response)
-
+    const response = templates.buildQuestionResponseTemplate(1, oldForm)
     return response;
-}
-
-function buildQuestionResponseTemplate(index, oldForm) {
-    let responseTemplate;
-    const question = questions[index -1];
-
-    if (question.template_type === 'button') {
-        responseTemplate = {
-            attachment: {
-                type: 'template',
-                payload: {
-                    template_type: question.template_type,
-                    text: question.text,
-                    buttons:  question.options.map(item => {
-                        return {
-                            type: 'postback',
-                            title: item.title,
-                            // postback payload must be a string
-                            payload: saveAnswer(oldForm, question.field, item.value)
-                        }
-                    })
-                }
-            }
-        }
-    } else {
-        responseTemplate = {text: 'I am not sure how to do that yet...'}
-    }
-
-    return responseTemplate;
 }

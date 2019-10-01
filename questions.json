@@ -1,6 +1,21 @@
 {
     "questions": [
         {
+            "field": "form_started",
+            "text": "Would you like to start the form?",
+            "template_type": "button",
+            "options": [
+                {
+                    "title": "Yes!",
+                    "value": true
+                },
+                {
+                    "title": "No",
+                    "value": false
+                }
+            ]
+        },
+        {
             "field": "color",
             "text": "What is your favorite color?",
             "template_type": "button",
