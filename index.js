@@ -110,9 +110,9 @@ function handleMessage(sender_psid, received_message) {
 
         if (received_message.text.toLowerCase() === 'start the form') {
             startForm(sender_psid);
-        } else if (received_message.entities) {
-            if (received_message.entities.location){
-                replyLocation(received_message.entities.location)
+        } else if (received_message.nlp.entities) {
+            if (received_message.nlp.entities.location){
+                replyLocation(received_message.nlp.entities.location)
             }
         } else {
             // Create the payload for a basic text message
