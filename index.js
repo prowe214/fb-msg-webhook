@@ -4,6 +4,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
+const questions = require('./questions.json').questions;
 
 const app = express().use(bodyParser.json()); // creates express http server
 
@@ -244,52 +245,80 @@ function getQuestion(payload) {
 }
 
 function qFavoriteColor(oldForm) {
+    const response = buildQuestionResponseTemplate(1, oldForm)
+    // const answerBlue = saveAnswer({...oldForm}, 'color', 'blue');
+    // const answerRed = saveAnswer({...oldForm}, 'color', 'red');
+    // const answerPink = saveAnswer({...oldForm}, 'color', 'pink');
+    // const answerGold = saveAnswer({...oldForm}, 'color', 'gold');
 
-    console.log('IN COLOR QUESTION----------------')
-    const answerBlue = saveAnswer({...oldForm}, 'color', 'blue');
-    const answerRed = saveAnswer({...oldForm}, 'color', 'red');
-    const answerPink = saveAnswer({...oldForm}, 'color', 'pink');
-    const answerGold = saveAnswer({...oldForm}, 'color', 'gold');
-
-    // build the response template
-    const response = {
-        attachment: {
-            type: 'template',
-            payload: {
-                template_type: 'button',
-                text: 'What is your favorite color?',
-                buttons: [
-                    {
-                        type: 'postback',
-                        title: 'Blue and Navy',
-                        // postback payload must be a string
-                        payload: answerBlue
-                    },
-                    {
-                        type: 'postback',
-                        title: 'Gold and Yellow',
-                        // postback payload must be a string
-                        payload: answerGold
-                    },
-                    {
-                        type: 'postback',
-                        title: 'Pink and Red',
-                        // postback payload must be a string
-                        payload: answerPink
-                    },
-        // ⚠️MAX 3 BUTTONS!!!!
-                    // {
-                    //     type: 'postback',
-                    //     title: 'Red',
-                    //     // postback payload must be a string
-                    //     payload: answerRed
-                    // }
-                ]
-            }
-        }
-    }
+    // // build the response template
+    // const response = {
+    //     attachment: {
+    //         type: 'template',
+    //         payload: {
+    //             template_type: 'button',
+    //             text: 'What is your favorite color?',
+    //             buttons: [
+    //                 {
+    //                     type: 'postback',
+    //                     title: 'Blue and Navy',
+    //                     // postback payload must be a string
+    //                     payload: answerBlue
+    //                 },
+    //                 {
+    //                     type: 'postback',
+    //                     title: 'Gold and Yellow',
+    //                     // postback payload must be a string
+    //                     payload: answerGold
+    //                 },
+    //                 {
+    //                     type: 'postback',
+    //                     title: 'Pink and Red',
+    //                     // postback payload must be a string
+    //                     payload: answerPink
+    //                 },
+    //     // ⚠️MAX 3 BUTTONS!!!!
+    //                 // {
+    //                 //     type: 'postback',
+    //                 //     title: 'Red',
+    //                 //     // postback payload must be a string
+    //                 //     payload: answerRed
+    //                 // }
+    //             ]
+    //         }
+    //     }
+    // }
 
     console.log('----------RETURNING THIS', response)
 
     return response;
+}
+
+buildQuestionResponseTemplate(index, oldForm) {
+    let responseTemplate;
+    question = questions[index];
+
+    if (question.template_type === 'button') {
+        responseTemplate = {
+            attachment: {
+                type: 'template',
+                payload: {
+                    template_type: question.template_type,
+                    text: question.text,
+                    buttons:  question.options.map(item => {
+                        return {
+                            type: 'postback',
+                            title: item.title,
+                            // postback payload must be a string
+                            payload: saveAnswer(oldForm, question.field, item.value)
+                        }
+                    })
+                }
+            }
+        }
+    } else {
+        responseTemplate = {text: 'I am not sure how to do that yet...'}
+    }
+
+    return responseTemplate;
 }
