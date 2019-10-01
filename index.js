@@ -294,7 +294,7 @@ function qFavoriteColor(oldForm) {
     return response;
 }
 
-buildQuestionResponseTemplate(index, oldForm) {
+function buildQuestionResponseTemplate(index, oldForm) {
     let responseTemplate;
     question = questions[index];
 
