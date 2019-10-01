@@ -32,7 +32,6 @@ app.post('/webhook', (req, res) => {
         
         // iterate over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
-            console.log('***********************ENTRY DETAILS', entry)
             // gets the body of the webhook event.
             // entry.messaging is an array,
             // but will only ever contain one message
@@ -102,6 +101,7 @@ app.get('/webhook', (req, res) => {
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
+    console.log('*****************MESSAGE', received_message)
 
     let response;
 
