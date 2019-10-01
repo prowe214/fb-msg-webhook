@@ -113,7 +113,7 @@ function handleMessage(sender_psid, received_message) {
         } else if (received_message.nlp && received_message.nlp.entities) {
             console.log('*****************MESSAGE', received_message.nlp.entities.location)
             console.log('LOCATION', received_message.nlp.entities.location);
-            response = `you sent this address: ${received_message.nlp.entities.location}`
+            response = { 'text': `you sent this address: ${received_message.nlp.entities.location}` }
         } else {
             // Create the payload for a basic text message
             response = {
