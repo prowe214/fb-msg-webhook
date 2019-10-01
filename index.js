@@ -112,43 +112,13 @@ function handleMessage(sender_psid, received_message) {
             startForm(sender_psid);
         } else if (received_message.nlp && received_message.nlp.entities && received_message.nlp.entities.location[0]) {
             response = { 'text': `you sent this address: ${received_message.nlp.entities.location[0].value}` }
+
         } else {
             // Create the payload for a basic text message
             response = {
                 'text': `You sent this message: ${received_message.text}.  Say 'start the form' to test the form!`
             }
         }
-    } else if (received_message.attachments) {
-
-        // get the URL of the message attachment
-        // let attachment_url = received_message.attachments[0].payload.url;
-        // response = {
-        //     attachment: {
-        //         type: 'template',
-        //         payload: {
-        //             template_type: 'generic',
-        //             elements: [
-        //                 {
-        //                     title: 'Is this the right picture?',
-        //                     subtitle: 'Tap a button to answer',
-        //                     image_url: attachment_url,
-        //                     buttons: [
-        //                         {
-        //                             type: 'postback',
-        //                             title: 'Yes!',
-        //                             payload: 'yes'
-        //                         },
-        //                         {
-        //                             type: 'postback',
-        //                             title: 'No',
-        //                             payload: 'no'
-        //                         }
-        //                     ]
-        //                 }
-        //             ]
-        //         }
-        //     }
-        // }
     }
 
     // send the response message
@@ -201,6 +171,16 @@ function callSendAPI(sender_psid, response) {
 }
 
 function startForm(sender_psid) {
+
+    // Its polite to say hi
+    const intro = [
+        {text: 'Welcome to the demo!'},
+        {text: 'Thanks for reaching out.'}
+    ]
+    intro.forEach(item => {
+        callSendAPI(sender_psid, item);
+    })
+
     // start storing forms
     const formStore = {
         question_number: 0,
