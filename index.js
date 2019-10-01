@@ -191,6 +191,7 @@ function startForm(sender_psid) {
 
     // build the response template
     const response = templates.buildQuestionResponseTemplate(formStore, 0)
+    console.log('RESPONSE', response)
 
     // send the response
     callSendAPI(sender_psid, response)
