@@ -25,6 +25,8 @@ module.exports = {
                     }
                 }
             }
+        } else if (question.template_type === 'quick_replies') {
+            responseTemplate = this.quickRepliesTemplate(question, oldForm);
         } else {
             responseTemplate = {text: 'I am not sure how to do that yet...'}
         }
@@ -54,7 +56,7 @@ module.exports = {
                 }
             })
         }
-        }
+        return responseTemplate;
     }
 }
 
