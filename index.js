@@ -105,11 +105,14 @@ function handleMessage(sender_psid, received_message) {
     let response;
     
     console.log('-------RECEIVED', received_message);
-    // Check if the message contains text
-    // if (received_message.text && received_message.payload) {
 
-    // } else if (received_message.text) {
-    if (received_message.text) {
+    if (received_message.quick_reply) {
+        // treat quick_reply like a postback
+
+        handlePostback(sender_psid, received_message.quick_reply);
+
+    } else if (received_message.text) {
+        // Check if the message contains text
         
         if (received_message.text.toLowerCase() === 'start the form') {
             startForm(sender_psid);
