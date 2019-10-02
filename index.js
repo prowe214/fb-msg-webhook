@@ -190,7 +190,7 @@ function startForm(sender_psid) {
     }
 
     // build the response template
-    const response = templates.buildQuestionResponseTemplate(formStore, 0)
+    const response = templates.buildQuestionResponseTemplate(0, formStore)
     console.log('RESPONSE', response)
 
     // send the response
