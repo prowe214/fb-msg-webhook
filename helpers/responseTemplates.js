@@ -46,7 +46,7 @@ module.exports = {
 
     quickRepliesTemplate: function(question, oldForm) {
         const responseTemplate = {
-            text: "Pick a color:",
+            text: question.text,
             quick_replies: question.options.map(item => {
                 return {
                     content_type: "text",

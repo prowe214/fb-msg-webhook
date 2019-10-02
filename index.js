@@ -109,7 +109,8 @@ function handleMessage(sender_psid, received_message) {
         
         if (received_message.text.toLowerCase() === 'start the form') {
             startForm(sender_psid);
-        } else if (received_message.nlp && received_message.nlp.entities && received_message.nlp.entities.location) {
+        } else if ((received_message.nlp && received_message.nlp.entities && received_message.nlp.entities.location) 
+                && received_message.nlp.entities.location[0].confidence > 0.9) {
             response = { 'text': `you sent this address: ${received_message.nlp.entities.location[0].value}` }
         } else {
             // Create the payload for a basic text message
@@ -196,17 +197,4 @@ function startForm(sender_psid) {
 
 function getQuestion(payload) {
     return templates.buildQuestionResponseTemplate(payload.question_number, payload)
-    // switch (questionNumber) {
-    //     case 1:
-    //         return qFavoriteColor(payload)
-    //     case 2:
-    //         return {text: `Awesome! You started the form ${payload.form_data.form_started}, and your favorite color is ${payload.form_data.color}`}
-    //     default:
-    //         break;
-    // }
-}
-
-function qFavoriteColor(oldForm) {
-    const response = templates.buildQuestionResponseTemplate(1, oldForm)
-    return response;
 }
