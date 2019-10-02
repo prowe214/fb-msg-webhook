@@ -18,7 +18,7 @@ module.exports = {
             }
         } else {
             let responses = Object.keys(oldForm.form_data).map(key => {
-                return `${key}: ${oldForm[key]}`
+                return `${key}: ${oldForm.form_data[key]}`
             })
             responses = responses.join(', ');
             responseTemplate = { text: `You have completed the form!  Here are your responses: ${responses}` }
