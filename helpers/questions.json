@@ -16,21 +16,54 @@
             ]
         },
         {
-            "field": "color",
-            "text": "What is your favorite color?",
+            "field": "current_customer",
+            "text": "Are you a current customer?",
             "template_type": "button",
             "options": [
                 {
-                    "title": "Blue",
-                    "value": "blue"
+                    "title": "Yes",
+                    "value": "yes"
                 },
                 {
-                    "title": "Gold",
-                    "value": "gold"
+                    "title": "No",
+                    "value": "no"
+                }
+            ]
+        },
+        {
+            "field": "retailer",
+            "text": "What retailer is your card with?",
+            "template_type": "quick_replies",
+            "options": [
+                {
+                    "title": "Amazon",
+                    "value": "amazon",
+                    "image_url": "https://icon-library.net/images/amazon-logo-icon/amazon-logo-icon-1.jpg"
                 },
                 {
-                    "title": "Red",
-                    "value": "red"
+                    "title": "Sam's Club",
+                    "value": "sams club",
+                    "image_url": "https://d27dymkl0d7xsb.cloudfront.net/images/verifications/logos/sam-s-club-logo-db91f90f.png"
+                },
+                {
+                    "title": "TJ Maxx",
+                    "value": "tj maxx",
+                    "image_url": "https://res.cloudinary.com/campus-job/image/fetch/w_128,h_128,c_fit,g_center,dpr_1.0/https://static.wayup.com/company_logo/hTzcf9F5WH_20171012.jpg"
+                },
+                {
+                    "title": "Lowes",
+                    "value": "lowes",
+                    "image_url": "https://rm-core-production.s3.amazonaws.com/logos/633/large_lowes_logo.jpg"
+                },
+                {
+                    "title": "Paypal",
+                    "value": "paypal",
+                    "image_url": "https://miro.medium.com/fit/c/256/256/1*Dw4-tOJ_9myFUywLd3qzjA.png"
+                },
+                {
+                    "title": "Old Navy",
+                    "value": "old navy",
+                    "image_url": "https://speechbooth.com/wp-content/uploads/old-navy-256.png"
                 }
             ]
         }

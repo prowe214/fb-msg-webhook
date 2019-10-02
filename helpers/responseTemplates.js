@@ -32,7 +32,6 @@ module.exports = {
         return responseTemplate;
     },
 
-
     saveAnswer: function(oldForm, fieldName, fieldValue) {
         const questionNumber = oldForm.question_number;
         const newForm = {
@@ -43,5 +42,19 @@ module.exports = {
         return JSON.stringify(newForm);
     },
 
+    quickRepliesTemplate: function(question, oldForm) {
+        const responseTemplate = {
+            text: "Pick a color:",
+            quick_replies: question.options.map(item => {
+                return {
+                    content_type: "text",
+                    title: item.title,
+                    payload: this.saveAnswer(oldForm, question.field, item.value),
+                    image_url: item.image_url
+                }
+            })
+        }
+        }
+    }
 }
 

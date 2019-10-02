@@ -102,8 +102,6 @@ app.get('/webhook', (req, res) => {
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
-    console.log('MESSAGE', received_message)
-    
     let response;
     
     // Check if the message contains text
@@ -113,16 +111,16 @@ function handleMessage(sender_psid, received_message) {
             startForm(sender_psid);
         } else if (received_message.nlp && received_message.nlp.entities && received_message.nlp.entities.location) {
             response = { 'text': `you sent this address: ${received_message.nlp.entities.location[0].value}` }
-
         } else {
             // Create the payload for a basic text message
             response = {
                 'text': `You sent this message: ${received_message.text}.  Say 'start the form' to test the form!`
             }
         }
+    } else {
+        response = {text: 'I am not sure how to do that'}
     }
 
-    // send the response message
     callSendAPI(sender_psid, response);
 }
 
@@ -191,23 +189,21 @@ function startForm(sender_psid) {
 
     // build the response template
     const response = templates.buildQuestionResponseTemplate(0, formStore)
-    console.log('RESPONSE', response)
 
     // send the response
     callSendAPI(sender_psid, response)
 }
 
 function getQuestion(payload) {
-    const questionNumber = payload.question_number;
-
-    switch (questionNumber) {
-        case 1:
-            return qFavoriteColor(payload)
-        case 2:
-            return {text: `Awesome! You started the form ${payload.form_data.form_started}, and your favorite color is ${payload.form_data.color}`}
-        default:
-            break;
-    }
+    return templates.buildQuestionResponseTemplate(payload.question_number, payload)
+    // switch (questionNumber) {
+    //     case 1:
+    //         return qFavoriteColor(payload)
+    //     case 2:
+    //         return {text: `Awesome! You started the form ${payload.form_data.form_started}, and your favorite color is ${payload.form_data.color}`}
+    //     default:
+    //         break;
+    // }
 }
 
 function qFavoriteColor(oldForm) {
