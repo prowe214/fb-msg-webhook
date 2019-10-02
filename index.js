@@ -103,6 +103,7 @@ app.get('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
     let response;
+    let restart = false;
     
     console.log('-------RECEIVED', received_message);
 
@@ -122,14 +123,17 @@ function handleMessage(sender_psid, received_message) {
         } else {
             // Create the payload for a basic text message
             response = {
-                'text': `You sent this message: ${received_message.text}.  Say 'start the form' to test the form!`
+                'text': `Sorry, I am still learning and do not understand that yet.  Lets start over.`
             }
+            restart = true;
         }
     } else {
         response = {text: 'I am not sure how to do that'}
     }
 
     callSendAPI(sender_psid, response);
+
+    if (restart) { startForm(sender_psid) }
 }
 
 // handles messaging_postbacks events
