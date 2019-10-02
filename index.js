@@ -104,7 +104,11 @@ app.get('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
     let response;
     
+    console.log('-------RECEIVED', received_message);
     // Check if the message contains text
+    // if (received_message.text && received_message.payload) {
+
+    // } else if (received_message.text) {
     if (received_message.text) {
         
         if (received_message.text.toLowerCase() === 'start the form') {
